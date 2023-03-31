@@ -50,3 +50,4 @@ points using `main`, and text-printing functions in C. GCC is basically a C comp
   `puts`.
   ***
   learning all these was pretty interesting!!
+ author: #@andoabza
