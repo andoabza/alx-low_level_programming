@@ -1,6 +1,3 @@
-`IDENTIFY ERROR`![image](https://user-images.githubusercontent.com/105258746/190832836-b113fa0f-e26f-4db1-b8c5-d094c3dfd0a7.png) `ANALYZE ERROR`
-
-
 Debugging is the process of detecting and removing of existing and potential errors (also called as 'bugs') in a software code that can cause it to behave unexpectedly or crash.
 `YOU HAVE TO CRAETE YOUR PROTOTYPE ON YOUR main.h file FOR YOUR CODES TO WORK`
 
@@ -281,4 +278,4 @@ carrie@ubuntu:/debugging$
 
 
 As a bonus, talking through your code also helps you identify which portions need to have comments and what the comments should be.
-
+ author #@andoabza
