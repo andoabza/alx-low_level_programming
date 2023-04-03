@@ -1,31 +1,21 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include "lists.h"
 
 /**
- * struct listint_s - singly linked list
- * @n: integer
- * @next: points to the next node
+ * print_listint - prints all the elements of a linked list
+ * @h: linked list of type listint_t to print
  *
- * Description: singly linked list node structure
- * 
+ * Return: number of nodes
  */
-typedef struct listint_s
+size_t print_listint(const listint_t *h)
 {
-    int n;
-    struct listint_s *next;
-} listint_t;
+	size_t num = 0;
 
-int main ()
-{
-  void print_data(struct node *head)
-  {
-    if (head==NULL)
-      printf("linked list is empty");
-    struct node *next=NULL;
-    next = head;
-    while(next !=NULL) {
-	printf("%d",next->data)
-        next = next->link
-	  }
-  }
+	while (h)
+	{
+		printf("%d\n", h->n);
+		num++;
+		h = h->next;
+	}
+
+	return (num);
 }
