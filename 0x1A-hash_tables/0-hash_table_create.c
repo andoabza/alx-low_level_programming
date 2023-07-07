@@ -1,4 +1,4 @@
-#include "hash_table.h"
+#include "hash_tables.h"
 /*
  * size is the size of the array
  *
