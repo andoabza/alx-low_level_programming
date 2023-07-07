@@ -1,28 +1,13 @@
 #include "hash_tables.h"
 #include <stdlib.h>
 #include <string.h>
-
-unsigned long int hash_djb2(const unsigned char *str) 
-{
-    unsigned long int hash = 5381;
-    int c;
-
-    while ((c = *str++)) {
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
-    }
-
-    return (hash);
-}
-
-unsigned long int key_index(const unsigned char *key, unsigned long int size) 
-{
-    unsigned long int hash = hash_djb2(key);
-    unsigned long int index = hash % size;
-    return (index);
-}
-
+/*
+ *  takes a pointer to the hash table ht, the key key
+ *  checks if the key is valid (not NULL and not an empty string)
+ * */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value) 
 {
+    
     if (key == NULL || strlen(key) == 0)
         return (0);
 
