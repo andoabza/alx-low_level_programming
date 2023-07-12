@@ -1,40 +1,101 @@
 #include "hash_tables.h"
-#include <stdlib.h>
-#include <string.h>
-/*
- *  takes a pointer to the hash table ht, the key key
- *  checks if the key is valid (not NULL and not an empty string)
- * */
-int hash_table_set(hash_table_t *ht, const char *key, const char *value) 
+
+/**
+ * hash_table_set - insert a key, value pair to a hash table.
+ * @ht: hash table to insert to.
+ * @key: key
+ * @value: value to be stored at that key.
+ *
+ * Return: 1 on SUCCESS otherwise 0
+ */
+int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-    unsigned long int index = key_index((const unsigned char *)key, ht->size);    
-    hash_node_t *newNode = malloc(sizeof(hash_node_t));
-    hash_node_t *node = ht->array[index];
-    if (key == NULL || strlen(key) == 0)
-        return (0);
+        unsigned long int idx;
+        char *str;
+        hash_node_t *node;
 
-    /* unsigned long int index = key_index((const unsigned char *)key, ht->size);*/
+        if (!ht || !key)
+                return (0);
 
-    /*hash_node_t *node = ht->array[index];*/
-    while (node != NULL) 
-    {
-        if (strcmp(node->key, key) == 0) 
-	{
-            free(node->value);
-            node->value = strdup(value);
-            return (1);
+        idx = key_index((unsigned char *)key, ht->size);
+        if (value)
+                str = strdup(value);
+        else
+                str = NULL;
+
+        node = ht->array[idx];
+
+        if (!node)
+                node = new_node(NULL);
+
+        if (node->key)
+        {
+                ht->array[idx] = update_node(node, key, str);
+                return (1);
         }
-        node = node->next;
-    }
+        node->key = strdup(key);
+        node->value = str;
+        node->next = NULL;
 
-   /* hash_node_t *newNode = malloc(sizeof(hash_node_t));*/
-    if (newNode == NULL)
-        return (0);
-
-    newNode->key = strdup(key);
-    newNode->value = strdup(value);
-    newNode->next = ht->array[index];
-    ht->array[index] = newNode;
-
-    return (1);
+        ht->array[idx] = node;
+        return (1);
 }
+
+/**
+ * update_node - update or added a node if one already exists
+ *
+ * @node: pointer to a node the exist
+ * @key: key
+ * @value: value to update/create node with.
+ *
+ * Return: pointer to head of a list
+ */
+hash_node_t *update_node(hash_node_t *node, const char *key, char *value)
+{
+        hash_node_t *tmp = node;
+
+        while (tmp)
+        {
+
+                if (!strcmp(key, tmp->key))
+                {
+                        free(tmp->value);
+                        tmp->value = value;
+                        return (node);
+                }
+                tmp = tmp->next;
+        }
+
+        tmp = node;
+        node = new_node(node);
+        if (!node)
+        {
+                node = tmp;
+                return (node);
+        }
+        node->key = strdup(key);
+        node->value = value;
+        return (node);
+
+}
+
+/**
+ * new_node - create a new node
+ * @c_node: current node to add add at the end.
+ *
+ * Return: a point to the new node.
+ */
+hash_node_t *new_node(hash_node_t *c_node)
+{
+        hash_node_t *node;
+
+        node = malloc(sizeof(hash_node_t));
+        if (!node)
+                return (NULL);
+        node->key = NULL;
+        node->value = NULL;
+        node->next = c_node;
+
+        return (node);
+}
+
