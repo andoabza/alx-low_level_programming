@@ -1,0 +1,6 @@
+# make file for two files
+CC = gcc
+SRC = main.c school.c
+all: $(SRC)
+	$(CC) -o school $(SRC)
+	
