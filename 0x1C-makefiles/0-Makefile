@@ -1,0 +1,3 @@
+# this is the makefile for two files: main.c, school.c
+final:
+	gcc main.c school.c -o school 
